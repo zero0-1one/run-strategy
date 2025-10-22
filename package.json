@@ -44,8 +44,5 @@
   },
   "dependencies": {
     "ms": "^2.1.3"
-  },
-  "peerDependencies": {
-    "mysql2": "^3.14.1"
   }
 }
