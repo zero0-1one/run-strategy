@@ -1,6 +1,6 @@
 {
   "name": "run-strategy",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -11,7 +11,7 @@
     "check": "tsc --noEmit",
     "test": "jest",
     "test:cov": "rm -rf coverage && jest --coverage",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm test && npm run build",
     "lint": "eslint ."
   },
   "files": [
