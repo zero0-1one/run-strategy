@@ -84,4 +84,8 @@ export class Waiting<T = void> {
   public finally(onfinally?: (() => void) | null): Promise<T> {
     return this.promise.finally(onfinally);
   }
+
+  public asPromise(): Promise<T> {
+    return this as unknown as Promise<T>;
+  }
 }

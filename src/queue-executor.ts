@@ -53,6 +53,18 @@ export class QueueExecutor {
       }
       queue.shift();
     }
+    this.queues.delete(key);
+  }
+
+  /** 获取指定 key 的所有任务(执行中和等待中)*/
+  public getTasks(key: string): Array<Promise<unknown>> {
+    return this.queues.get(key)?.map(({ waiting }) => waiting.asPromise()) ?? [];
+  }
+
+  /** 获取所有任务(执行中和等待中)*/
+  public allTasks(): Array<Promise<unknown>> {
+    const waitingTasks = this.queues.values().flatMap((queue) => queue.map(({ waiting }) => waiting.asPromise()));
+    return [...waitingTasks];
   }
 
   /**

@@ -123,6 +123,32 @@ describe('QueueExecutor', () => {
     await Promise.all(promises);
   });
 
+  it('获取执行中的任务', async () => {
+    let a = 0;
+    let b = 0;
+    let c = 0;
+    for (let i = 0; i < 5; i++) {
+      void executor.execute('a', async () => {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        a++;
+      });
+
+      void executor.execute('b', async () => {
+        await new Promise((resolve) => setTimeout(resolve, 150));
+        b++;
+      });
+      void executor.execute('c', async () => {
+        await new Promise((resolve) => setTimeout(resolve, 200));
+        c++;
+      });
+    }
+    await Promise.all(executor.getTasks('a'));
+    expect(a).toBe(5);
+    await Promise.all(executor.allTasks());
+    expect(b).toBe(5);
+    expect(c).toBe(5);
+  });
+
   it('应该能够处理大量并发任务', async () => {
     const taskCount = 100;
     const results: number[] = [];
